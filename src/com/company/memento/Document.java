@@ -1,25 +1,18 @@
 package com.company.memento;
 
-/*
-* In the Exercises project, look at the code in the memento/Document
-class. This class represents a document in a word processor like MS
-Word or Apple Pages.
-Our Document class has three attributes:
-- content
-- fontName
-- fontSize
-We should allow the user to undo the changes to any of these
-attributes. In the future, we may add additional attributes in this
-class and these attributes should also be undoable.
-Implement the undo feature using the memento pattern.
-* */
-
+/**
+ * This is originator class in memento pattern and responsible for creating and restoring the document state.
+ * We can set the font name, size and text content to document. It also allow us to do multiple undo, if there is
+ * nothing in undo stack it will reset the document state to default.
+ * */
 public class Document {
 
-    private String content;
-    private String fontName;
-    private int fontSize;
-    private final History history = new History();
+    private final String DEFAULT_FONT_NAME = "Calibre";
+    private final int DEFAULT_FONT_SIZE = 8;
+    private String content = "";
+    private String fontName = DEFAULT_FONT_NAME;
+    private int fontSize = DEFAULT_FONT_SIZE;
+    private final History history = new History(); // This violates the single responsibility principle as Document is maintaning history.
 
 
     public String getContent() {
@@ -54,15 +47,28 @@ public class Document {
     }
 
     private void restoreState(DocumentState state) {
-        this.content = state.getContent();
-        this.fontName = state.getFontName();
-        this.fontSize = state.getFontSize();
+        this.content = state.content();
+        this.fontName = state.fontName();
+        this.fontSize = state.fontSize();
     }
 
     public void undo() {
-        var lastState = history.pop();
-        if (lastState != null)
+        var lastState =(DocumentState) history.pop();
+        if (lastState != null){
             restoreState(lastState);
+        } else{
+            this.content = "";
+            this.fontName = DEFAULT_FONT_NAME; // Default font name
+            this.fontSize = DEFAULT_FONT_SIZE; // Default font size
+        }
+    }
+
+    public String getCurrentDocument(){
+        return this.toString();
+    }
+
+    public History getHistory(){
+        return history;
     }
 
     @Override

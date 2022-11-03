@@ -1,3 +1,3 @@
-# design-pattern-excercise
+# design-pattern-exercises
 
-This contains the solution for design pattern excerise by mosh hamedani.
+This contains the implementation of multiple design patterns used in day to day life.

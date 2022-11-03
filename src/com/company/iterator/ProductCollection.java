@@ -3,7 +3,7 @@ package com.company.iterator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCollection {
+public class ProductCollection implements Collection {
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private final List<Product> products = new ArrayList<>();
 
@@ -11,7 +11,8 @@ public class ProductCollection {
         this.products.add(product);
     }
 
-    public ProductIterator iterator(){
+    @Override
+    public ProductIterator getIterator() {
         return new ProductIterator(this);
     }
 

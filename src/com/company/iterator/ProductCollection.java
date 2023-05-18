@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCollection implements Collection {
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private final List<Product> products = new ArrayList<>();
 
     public void add(Product product) {

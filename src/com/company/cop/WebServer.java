@@ -2,17 +2,13 @@ package com.company.cop;
 
 public class WebServer {
 
-    private Authenticator authenticator = new Authenticator();
+    private Handler handler;
+
+    public WebServer(Handler handler) {
+        this.handler = handler;
+    }
+
     public void handle(HttpRequest request){
-        // We can perform multiple actions here such as
-        // Authentication
-
-        if (authenticator.authenticate(request)){
-            System.out.println("User is valid, authencation successful");
-        }
-
-        // Logging
-        // Encryption
-        // etc
+        handler.handle(request);
     }
 }
